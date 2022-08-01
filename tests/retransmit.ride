@@ -1,0 +1,12 @@
+{-# STDLIB_VERSION 6 #-}
+{-# CONTENT_TYPE DAPP #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+@Callable(i)
+func retransmit( address: String, amount: Int, asset: ByteVector, bool: Boolean, list: List[String] ) =
+[
+    StringEntry( "LIST_0", list[0] ),
+    StringEntry( "LIST_1", list[1] ),
+    StringEntry( "LIST_2", list[2] ),
+    ScriptTransfer( addressFromStringValue( address ), amount, if( asset == base58'' ) then unit else asset )
+]

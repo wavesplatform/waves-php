@@ -1,0 +1,44 @@
+name: Codecov
+
+on: [ push, pull_request ]
+
+jobs:
+  codecov:
+    name: Codecov
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+        php-versions: [ '8.1' ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: gmp, pdo_sqlite, xdebug
+
+    - name: PHP version
+      run: php -v
+
+    - name: Composer install
+      run: composer install
+
+    - name: PHPUnit coverage
+      env:
+        XDEBUG_MODE: coverage
+        WAVES_CONFIG: 7b2257415645535f4e4f4445223a2268747470733a5c2f5c2f73746167652d6e6f64652e77382e696f222c2257415645535f464155434554223a2277617665732070726976617465206e6f64652073656564207769746820776176657320746f6b656e73227d
+      run: php vendor/bin/phpunit tests --coverage-clover ./coverage.xml
+
+    - name: Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage.xml
+        

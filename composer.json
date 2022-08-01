@@ -1,0 +1,28 @@
+{
+    "name": "waves/client",
+    "description": "PHP client library for interacting with Waves blockchain platform",
+    "keywords": [ "waves", "wavesplatform", "blockchain", "client" ],
+    "homepage": "https://github.com/wavesplatform/waves-php",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitrii Pichulin",
+            "email": "deem@deem.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Waves\\": "src"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.8"
+    },
+    "require": {
+        "deemru/waveskit": "^1.0",
+        "deemru/abcode": "^1.0",
+        "waves/protobuf": "^1.4"
+    }
+}

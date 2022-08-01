@@ -1,0 +1,6 @@
+/vendor
+/.phpunit.cache
+/.vscode
+/coverage.xml
+/composer.lock
+/tests/config.php

@@ -1,0 +1,35 @@
+name: PHPStan
+
+on: [ push, pull_request ]
+
+jobs:
+  phpstan:
+    name: PHPStan
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+        php-versions: [ '8.1' ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: gmp, pdo_sqlite
+
+    - name: PHP version
+      run: php -v
+
+    - name: Composer install
+      run: composer install
+
+    - name: PHPStan analyse
+      run: php vendor/bin/phpstan analyse src tests --level 9
