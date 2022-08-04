@@ -21,6 +21,7 @@
         "phpstan/phpstan": "^1.8"
     },
     "require": {
+        "php": ">=7.4",
         "deemru/waveskit": "^1.0",
         "deemru/abcode": "^1.0",
         "waves/protobuf": "^1.4"
