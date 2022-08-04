@@ -624,14 +624,17 @@ class Node
     // WAITINGS
     //===============
 
-    const blockInterval = 60;
+    const blockIntervalInSeconds = 60;
+    const pollingIntervalInMillis = 1000;
 
-    function waitForTransaction( Id $id, int $waitingInSeconds = Node::blockInterval ): TransactionInfo
+    function waitForTransaction( Id $id, int $waitingInSeconds = Node::blockIntervalInSeconds, int $pollingIntervalInMillis = Node::pollingIntervalInMillis ): TransactionInfo
     {
         if( $waitingInSeconds < 1 )
             $waitingInSeconds = 1;
 
-        $pollingIntervalInMillis = 100;
+        if( $pollingIntervalInMillis < 1 )
+            $pollingIntervalInMillis = 1;
+
         $pollingIntervalInMicros = $pollingIntervalInMillis * 1000;
         $waitingInMillis = $waitingInSeconds * 1000;
 
@@ -658,12 +661,14 @@ class Node
      * @param int $waitingInSeconds
      * @return void
      */
-    function waitForTransactions( array $ids, int $waitingInSeconds = Node::blockInterval ): void
+    function waitForTransactions( array $ids, int $waitingInSeconds = Node::blockIntervalInSeconds, int $pollingIntervalInMillis = Node::pollingIntervalInMillis ): void
     {
         if( $waitingInSeconds < 1 )
             $waitingInSeconds = 1;
 
-        $pollingIntervalInMillis = 1000;
+        if( $pollingIntervalInMillis < 1 )
+            $pollingIntervalInMillis = 1;
+
         $pollingIntervalInMicros = $pollingIntervalInMillis * 1000;
         $waitingInMillis = $waitingInSeconds * 1000;
 
@@ -697,7 +702,7 @@ class Node
         throw new Exception( __FUNCTION__ . ' could not wait for transactions', ExceptionCode::TIMEOUT );
     }
 
-    function waitForHeight( int $target, int $waitingInSeconds = Node::blockInterval * 3 ): int
+    function waitForHeight( int $target, int $waitingInSeconds = Node::blockIntervalInSeconds * 3, int $pollingIntervalInMillis = Node::pollingIntervalInMillis ): int
     {
         $start = $this->getHeight();
         $prev = $start;
@@ -705,7 +710,9 @@ class Node
         if( $waitingInSeconds < 1 )
             $waitingInSeconds = 1;
 
-        $pollingIntervalInMillis = 100;
+        if( $pollingIntervalInMillis < 1 )
+            $pollingIntervalInMillis = 1;
+
         $pollingIntervalInMicros = $pollingIntervalInMillis * 1000;
         $waitingInMillis = $waitingInSeconds * 1000;
 
@@ -727,8 +734,8 @@ class Node
         throw new Exception( __FUNCTION__ . ' could not wait for height `' . $target . '` in ' . $waitingInSeconds . ' seconds', ExceptionCode::TIMEOUT );
     }
 
-    function waitBlocks( int $blocksCount, int $waitingInSeconds = Node::blockInterval * 3 ): int
+    function waitBlocks( int $blocksCount, int $waitingInSeconds = Node::blockIntervalInSeconds * 3, int $pollingIntervalInMillis = Node::pollingIntervalInMillis ): int
     {
-        return $this->waitForHeight( $this->getHeight() + $blocksCount, $waitingInSeconds );
+        return $this->waitForHeight( $this->getHeight() + $blocksCount, $waitingInSeconds, $pollingIntervalInMillis );
     }
 }
