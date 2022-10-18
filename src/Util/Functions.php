@@ -41,4 +41,19 @@ class Functions
     {
         return Id::fromBytes( (new \deemru\WavesKit)->blake2b256( $bodyBytes ) );
     }
+
+    static function getRandomSeedPhrase( int $wordsNumber = 15 ): string
+    {
+        $dictionary = Dictionary::BIP39_ENGLISH;
+
+        $seed = '';
+        $maxIndex = count( $dictionary ) - 1;
+        for( $i = 0; $i < $wordsNumber; $i++ )
+            $seed .= ( $i ? ' ' : '' ) . $dictionary[random_int( 0, $maxIndex )];
+
+        if( $seed === '' )
+            throw new Exception( __FUNCTION__ . ' empty seed', ExceptionCode::UNEXPECTED );
+
+        return $seed;
+    }
 }

@@ -402,6 +402,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $node3 = new Node( str_replace( 'https', 'http', Node::MAINNET ) );
         $this->assertSame( $node1->chainId()->asString(), $node2->chainId()->asString() );
         $this->assertSame( $node2->chainId()->asString(), $node3->chainId()->asString() );
+        $this->assertNotSame( Functions::getRandomSeedPhrase(), Functions::getRandomSeedPhrase() );
     }
 
     function testExceptions(): void
@@ -418,6 +419,8 @@ class NodeTest extends \PHPUnit\Framework\TestCase
 
         $this->catchExceptionOrFail( ExceptionCode::BAD_ALIAS, function(){ Recipient::fromAddressOrAlias( '123' ); } );
         $this->catchExceptionOrFail( ExceptionCode::BASE58_DECODE, function(){ Functions::base58Decode( 'ill' ); } );
+
+        $this->catchExceptionOrFail( ExceptionCode::UNEXPECTED, function(){ Functions::getRandomSeedPhrase( 0 ); } );
     }
 }
 

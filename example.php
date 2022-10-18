@@ -13,6 +13,7 @@ use Waves\Transactions\Invocation\FunctionCall;
 use Waves\Transactions\InvokeScriptTransaction;
 use Waves\Transactions\Recipient;
 use Waves\Transactions\TransferTransaction;
+use Waves\Util\Functions;
 
 ## MAIN CONFIG
 
@@ -23,12 +24,18 @@ $node = Node::TESTNET();
 ## CREATE NEW ACCOUNT
 
 # from a seed
-$account = PrivateKey::fromSeed( 'your mnemonic seed phrase' );
+$seed = 'your mnemonic seed phrase';
+$account = PrivateKey::fromSeed( $seed );
+
+# or from a random seed
+//$seed = Functions::getRandomSeedPhrase();
+//$account = PrivateKey::fromSeed( $seed );
 
 # or from a raw 32 bytes private key (32 bytes)
-//$account = PrivateKey::fromBytes( random_bytes( 32 ) );
+//$privateKeyBytes = random_bytes( 32 );
+//$account = PrivateKey::fromBytes( $privateKeyBytes );
 
-# or a from base58 encoded private key
+# or from a base58 encoded private key
 $account = PrivateKey::fromString( $account->toString() );
 
 # a public key is used as a sender
