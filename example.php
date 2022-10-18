@@ -29,13 +29,13 @@ $account = PrivateKey::fromSeed( $seed );
 
 # or from a random seed
 //$seed = Functions::getRandomSeedPhrase();
-//$account = PrivateKey::fromBytes( $seed );
+//$account = PrivateKey::fromSeed( $seed );
 
 # or from a raw 32 bytes private key (32 bytes)
 //$privateKeyBytes = random_bytes( 32 );
 //$account = PrivateKey::fromBytes( $privateKeyBytes );
 
-# or a from base58 encoded private key
+# or from a base58 encoded private key
 $account = PrivateKey::fromString( $account->toString() );
 
 # a public key is used as a sender

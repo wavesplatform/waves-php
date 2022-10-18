@@ -42,7 +42,7 @@ class Functions
         return Id::fromBytes( (new \deemru\WavesKit)->blake2b256( $bodyBytes ) );
     }
 
-    static function getRandomSeedPhrase( int $wordsNumber = 15 )
+    static function getRandomSeedPhrase( int $wordsNumber = 15 ): string
     {
         $dictionary = Dictionary::BIP39_ENGLISH;
 

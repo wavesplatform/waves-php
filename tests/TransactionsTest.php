@@ -40,6 +40,7 @@ use Waves\Transactions\SetScriptTransaction;
 use Waves\Transactions\SponsorFeeTransaction;
 use Waves\Transactions\TransferTransaction;
 use Waves\Transactions\UpdateAssetInfoTransaction;
+use Waves\Util\Functions;
 
 class TransactionsTest extends \PHPUnit\Framework\TestCase
 {
@@ -73,7 +74,7 @@ class TransactionsTest extends \PHPUnit\Framework\TestCase
             $account = PrivateKey::fromString( $account );
         else
         {
-            $account = PrivateKey::fromBytes( random_bytes( 32 ) );
+            $account = PrivateKey::fromSeed( Functions::getRandomSeedPhrase() );
             putenv( 'WAVES_ACCOUNT=' . $account->toString() );
         }
 
