@@ -41,9 +41,10 @@ class Base64String
     {
         if( !isset( $this->bytes ) )
         {
-            $this->bytes = base64_decode( $this->encoded );
-            if( !is_string( $this->bytes ) )
+            $bytes = base64_decode( $this->encoded );
+            if( !is_string( $bytes ) )
                 throw new Exception( __FUNCTION__ . ' failed to decode string: ' . $this->encoded, ExceptionCode::BASE64_DECODE );
+            $this->bytes = $bytes;
         }
         return $this->bytes;
     }
