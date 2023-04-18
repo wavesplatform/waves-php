@@ -53,12 +53,6 @@ class Node
     function __construct( string $uri, ChainId $chainId = null )
     {
         $this->uri = $uri;
-        $this->wk = new \deemru\WavesKit( '?', function( string $wklevel, string $wkmessage )
-        {
-            $this->wklevel = $wklevel;
-            $this->wkmessage = $wkmessage;
-        } );
-        $this->wk->setNodeAddress( $uri, 0 );
 
         if( !isset( $chainId ) )
         {
@@ -77,8 +71,13 @@ class Node
         {
             $this->chainId = $chainId;
         }
-
-        $this->wk->chainId = $this->chainId->asString(); // @phpstan-ignore-line // accept workaround
+        
+        $this->wk = new \deemru\WavesKit( $this->chainId->asString(), function( string $wklevel, string $wkmessage )
+        {
+            $this->wklevel = $wklevel;
+            $this->wkmessage = $wkmessage;
+        } );
+        $this->wk->setNodeAddress( $uri, 0 );
     }
 
     static function MAINNET(): Node
