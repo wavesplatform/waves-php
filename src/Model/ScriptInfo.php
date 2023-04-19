@@ -7,7 +7,7 @@ use Waves\Common\JsonBase;
 
 class ScriptInfo extends JsonBase
 {
-    function script(): Base64String { return $this->json->get( 'script' )->asBase64String(); }
+    function script(): Base64String { return $this->json->getOr( 'script', '' )->asBase64String(); }
     function complexity(): int { return $this->json->get( 'complexity' )->asInt(); }
     function verifierComplexity(): int { return $this->json->get( 'verifierComplexity' )->asInt(); }
     function extraFee(): int { return $this->json->get( 'extraFee' )->asInt(); }
