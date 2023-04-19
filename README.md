@@ -4,9 +4,9 @@
 [![php-version](https://img.shields.io/packagist/php-v/waves/client.svg)](https://packagist.org/packages/waves/client)
 [![codecov](https://img.shields.io/codecov/c/github/wavesplatform/waves-php)](https://app.codecov.io/gh/wavesplatform/waves-php)
 [![phpstan](https://img.shields.io/badge/PHPStan-level%209-brightgreen.svg)](https://github.com/wavesplatform/waves-php/blob/main/.github/workflows/phpstan.yml#L35)
-[![codecov](https://img.shields.io/github/workflow/status/wavesplatform/waves-php/Codecov?label=Codecov)](https://github.com/wavesplatform/waves-php/actions/workflows/codecov.yml)
-[![phpstan](https://img.shields.io/github/workflow/status/wavesplatform/waves-php/PHPStan?label=PHPStan)](https://github.com/wavesplatform/waves-php/actions/workflows/phpstan.yml)
-[![phpstan](https://img.shields.io/github/workflow/status/wavesplatform/waves-php/PHPUnit?label=PHPUnit)](https://github.com/wavesplatform/waves-php/actions/workflows/phpunit.yml)
+[![codecov](https://img.shields.io/github/actions/workflow/status/wavesplatform/waves-php/codecov.yml?branch=main&label=Codecov)](https://github.com/wavesplatform/waves-php/actions/workflows/codecov.yml)
+[![phpstan](https://img.shields.io/github/actions/workflow/status/wavesplatform/waves-php/phpstan.yml?branch=main&label=PHPStan)](https://github.com/wavesplatform/waves-php/actions/workflows/phpstan.yml)
+[![phpstan](https://img.shields.io/github/actions/workflow/status/wavesplatform/waves-php/phpunit.yml?branch=main&label=PHPUnit)](https://github.com/wavesplatform/waves-php/actions/workflows/phpunit.yml)
 
 PHP client library for interacting with Waves blockchain platform.
 
