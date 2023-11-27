@@ -23,4 +23,5 @@ class ExceptionCode
     const BAD_CHAINID =     ExceptionCode::BASE | 16;
     const TIMEOUT =         ExceptionCode::BASE | 17;
     const UNEXPECTED =      ExceptionCode::BASE | 18;
+    const BAD_KEY =         ExceptionCode::BASE | 19;
 }
