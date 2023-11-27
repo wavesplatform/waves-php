@@ -2,7 +2,9 @@
 
 namespace Waves\Account;
 
+use Exception;
 use Waves\Common\Base58String;
+use Waves\Common\ExceptionCode;
 
 class PrivateKey
 {
@@ -16,7 +18,10 @@ class PrivateKey
     static function fromSeed( string $seed, int $nonce = 0 ): PrivateKey
     {
         $privateKey = new PrivateKey;
-        $privateKey->key = Base58String::fromBytes( ( new \deemru\WavesKit )->getPrivateKey( true, $seed, pack( 'N', $nonce ) ) );
+        $bytes = ( new \deemru\WavesKit )->getPrivateKey( true, $seed, pack( 'N', $nonce ) );
+        if( !is_string( $bytes ) || strlen( $bytes ) !== PrivateKey::LENGTH )
+            throw new Exception( __FUNCTION__ . ' bad key', ExceptionCode::BAD_KEY );
+        $privateKey->key = Base58String::fromBytes( $bytes );
         return $privateKey;
     }
 

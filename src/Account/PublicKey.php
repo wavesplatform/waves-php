@@ -2,7 +2,9 @@
 
 namespace Waves\Account;
 
+use Exception;
 use Waves\Common\Base58String;
+use Waves\Common\ExceptionCode;
 use Waves\Model\ChainId;
 
 class PublicKey
@@ -34,7 +36,10 @@ class PublicKey
         $publicKey = new PublicKey;
         $wk = new \deemru\WavesKit;
         $wk->setPrivateKey( $key->bytes(), true );
-        $publicKey->key = Base58String::fromBytes( $wk->getPublicKey( true ) );
+        $bytes = $wk->getPublicKey( true );
+        if( !is_string( $bytes ) || strlen( $bytes ) !== PublicKey::BYTES_LENGTH )
+            throw new Exception( __FUNCTION__ . ' bad key', ExceptionCode::BAD_KEY );
+        $publicKey->key = Base58String::fromBytes( $bytes );
         return $publicKey;
     }
 

@@ -38,7 +38,10 @@ class Address
         $address = new Address;
         $wk = new \deemru\WavesKit( ( isset( $chainId ) ? $chainId : WavesConfig::chainId() )->asString() );
         $wk->setPublicKey( $publicKey->bytes(), true );
-        $address->address = Base58String::fromBytes( $wk->getAddress( true ) );
+        $bytes = $wk->getAddress( true );
+        if( !is_string( $bytes ) || strlen( $bytes ) !== Address::BYTE_LENGTH )
+            throw new Exception( __FUNCTION__ . ' bad key', ExceptionCode::BAD_KEY );
+        $address->address = Base58String::fromBytes( $bytes );
         return $address;
     }
 
