@@ -154,7 +154,17 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $block = $nodeW->getLastBlock();
         $blocks = $nodeW->getBlocksGeneratedBy( $block->generator(), $heightW - 10, $heightW );
 
-        $blocks = $nodeW->getBlocks( $heightW - 4, $heightW );
+        try
+        {
+            $blocks = $nodeW->getBlocks( $heightW - 4, $heightW );
+        }
+        catch( Exception $e )
+        {
+            if( false !== strpos( $e->getMessage(), 'HTTP 429' ) )
+                sleep( 5 );
+            $blocks = $nodeW->getBlocks( $heightW - 4, $heightW );
+        }
+
         $this->assertSame( 5, count( $blocks ) );
         foreach( $blocks as $block )
             foreach( $block->transactions() as $tx )
@@ -411,7 +421,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $json = $node->get( '/blocks/headers/last' );
 
         $this->catchExceptionOrFail( ExceptionCode::FETCH_URI, function() use ( $node ){ $node->get( '/test' ); } );
-        $this->catchExceptionOrFail( ExceptionCode::JSON_DECODE, function() use ( $node ){ $node->get( '/api-docs/favicon-16x16.png' ); } );
+        $this->catchExceptionOrFail( ExceptionCode::JSON_DECODE, function() use ( $node ){ $node->get( '/api-docs/index.css' ); } );
         $this->catchExceptionOrFail( ExceptionCode::KEY_MISSING, function() use ( $json ){ $json->get( 'x' ); } );
         $this->catchExceptionOrFail( ExceptionCode::INT_EXPECTED, function() use ( $json ){ $json->get( 'signature' )->asInt(); } );
         $this->catchExceptionOrFail( ExceptionCode::STRING_EXPECTED, function() use ( $json ){ $json->get( 'height' )->asString(); } );

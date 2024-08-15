@@ -456,7 +456,7 @@ class Node
 
     function getGenesisBlock(): Block
     {
-        return $this->get( '/blocks/first' )->asBlock();
+        return $this->get( '/blocks/at/1' )->asBlock();
     }
 
     function getLastBlock(): Block

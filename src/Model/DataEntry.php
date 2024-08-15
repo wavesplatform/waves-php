@@ -122,9 +122,9 @@ class DataEntry extends JsonBase
         return Value::as( $this->value() )->asBoolean();
     }
 
-    function toProtobuf(): \Waves\Protobuf\DataTransactionData\DataEntry
+    function toProtobuf(): \Waves\Protobuf\DataEntry
     {
-        $pb_DataEntry = new \Waves\Protobuf\DataTransactionData\DataEntry;
+        $pb_DataEntry = new \Waves\Protobuf\DataEntry;
         $pb_DataEntry->setKey( $this->key() );
         switch( $this->type() )
         {
